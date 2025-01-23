@@ -7,3 +7,5 @@ templates/.*
 .start*
 out.wav
 tts_output.wav
+books/**/*.wav
+books/**/list.txt

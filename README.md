@@ -1,3 +1,5 @@
+![novelai.gif](novelai.jpg)
+
 # NovelAI
 
 NovelAI is an open-source project designed to empower would-be authors by leveraging artificial intelligence to create full-length novels. Whether you're a seasoned author or just starting out, NovelAI provides a suite of tools to streamline the novel-writing process, from drafting an outline to generating a finished audiobook.
