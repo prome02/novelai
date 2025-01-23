@@ -6,7 +6,7 @@ NovelAI is an open-source project designed to empower would-be authors by levera
 
 Note: This is mostly a hobby project of mine, so set expectations accordingly! 
 
-[Sample Novel](books/samplenovel) ([txt](books/samplenovel/book.md), [docx](books/samplenovel/book.docx), [mp3](books/samplenovel/audiobook.mp3))
+[Sample Novel](books/samplenovel) ([txt](books/samplenovel/book.md), [docx](books/samplenovel/book.docx), [mp3](books/samplenovel/audiobook.mp3), [download mp3](https://github.com/jacobbeasley/novelai/raw/refs/heads/master/books/samplenovel/audiobook.mp3))
 
 ![novelai.gif](novelai.gif)
 
