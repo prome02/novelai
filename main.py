@@ -1,15 +1,15 @@
 # Example: reuse your existing OpenAI setup
-import typer  # see https://typer.tiangolo.com/tutorial/subcommands/
-from typing_extensions import Annotated
-
 import glob
 import os
 
+import typer  # see https://typer.tiangolo.com/tutorial/subcommands/
+from typing_extensions import Annotated
+
+import audioapp
 import booksapp
 import chaptersapp
 import config
 import openaiapp
-import importlib
 from config import getconfig, updateconfig
 
 # bootstrap typer
@@ -17,15 +17,7 @@ app = typer.Typer(no_args_is_help=True)
 app.add_typer(booksapp.app, name="books")
 app.add_typer(chaptersapp.app, name="chapters")
 app.add_typer(openaiapp.app, name="openai")
-
-try:
-    importlib.import_module("TTS")
-    import audioapp
-    app.add_typer(audioapp.app, name="audio")
-except ImportError as e:
-    print(e)
-    if config.getconfig("NOVELAI_DEBUG"):
-        print("Skipping audioapp")
+app.add_typer(audioapp.app, name="audio")
 
 # Gradio user interface
 # def explore_novels():
@@ -130,41 +122,33 @@ def start(
     navs.append("Step 3: Download Novel")
 
     # Audio Functionality
-    try:
-        importlib.import_module("TTS")
-        import audioapp
+    voices = ['', 'Claribel Dervla', 'Daisy Studious', 'Gracie Wise', 'Tammie Ema', 'Alison Dietlinde', 'Ana Florence', 'Annmarie Nele', 'Asya Anara', 'Brenda Stern', 'Gitta Nikolina', 'Henriette Usha', 'Sofia Hellen', 'Tammy Grit', 'Tanja Adelina', 'Vjollca Johnnie', 'Andrew Chipper', 'Badr Odhiambo', 'Dionisio Schuyler', 'Royston Min', 'Viktor Eka', 'Abrahan Mack', 'Adde Michal', 'Baldur Sanjin', 'Craig Gutsy', 'Damien Black', 'Gilberto Mathias', 'Ilkin Urbano', 'Kazuhiko Atallah', 'Ludvig Milivoj', 'Suad Qasim', 'Torcull Diarmuid', 'Viktor Menelaos', 'Zacharie Aimilios', 'Nova Hogarth', 'Maja Ruoho', 'Uta Obando', 'Lidiya Szekeres', 'Chandra MacFarland', 'Szofi Granger', 'Camilla Holmström', 'Lilya Stainthorpe', 'Zofija Kendrick', 'Narelle Moon', 'Barbora MacLean', 'Alexandra Hisakawa', 'Alma María', 'Rosemary Okafor', 'Ige Behringer', 'Filip Traverse', 'Damjan Chapman', 'Wulf Carlevaro', 'Aaron Dreschner', 'Kumar Dahl', 'Eugenio Mataracı', 'Ferran Simen', 'Xavier Hayasaka', 'Luis Moray', 'Marcos Rudaski']
+    voicewavs = glob.glob("voices/*.wav")
+    voicewavs = sorted(voicewavs)
+    voicewavs = [os.path.basename(file) for file in voicewavs]
+    voicewavs.insert(0, "")
 
-        voices = ['', 'Claribel Dervla', 'Daisy Studious', 'Gracie Wise', 'Tammie Ema', 'Alison Dietlinde', 'Ana Florence', 'Annmarie Nele', 'Asya Anara', 'Brenda Stern', 'Gitta Nikolina', 'Henriette Usha', 'Sofia Hellen', 'Tammy Grit', 'Tanja Adelina', 'Vjollca Johnnie', 'Andrew Chipper', 'Badr Odhiambo', 'Dionisio Schuyler', 'Royston Min', 'Viktor Eka', 'Abrahan Mack', 'Adde Michal', 'Baldur Sanjin', 'Craig Gutsy', 'Damien Black', 'Gilberto Mathias', 'Ilkin Urbano', 'Kazuhiko Atallah', 'Ludvig Milivoj', 'Suad Qasim', 'Torcull Diarmuid', 'Viktor Menelaos', 'Zacharie Aimilios', 'Nova Hogarth', 'Maja Ruoho', 'Uta Obando', 'Lidiya Szekeres', 'Chandra MacFarland', 'Szofi Granger', 'Camilla Holmström', 'Lilya Stainthorpe', 'Zofija Kendrick', 'Narelle Moon', 'Barbora MacLean', 'Alexandra Hisakawa', 'Alma María', 'Rosemary Okafor', 'Ige Behringer', 'Filip Traverse', 'Damjan Chapman', 'Wulf Carlevaro', 'Aaron Dreschner', 'Kumar Dahl', 'Eugenio Mataracı', 'Ferran Simen', 'Xavier Hayasaka', 'Luis Moray', 'Marcos Rudaski']
-        voicewavs = glob.glob("voices/*.wav")
-        voicewavs = sorted(voicewavs)
-        voicewavs = [os.path.basename(file) for file in voicewavs]
-        voicewavs.insert(0, "")
-
-        navs.append("Step 4: Generate Audio")
-        interfaces.append(gr.TabbedInterface([
-            gr.Interface(fn=audioapp.generate, inputs=[
-                gr.Textbox(label="Text", value="Please excuse my dear aunt sally"),
-                gr.Dropdown(label="Voice", value='', choices=voices),
-                gr.Dropdown(label="Voice Wav", value="british-man-1.wav", choices=voicewavs),
-            ], outputs="audio"),
-            gr.Interface(fn=audioapp.chapter, inputs=[
-                gr.Dropdown(label="Folder Name", choices=booksapp.list()),
-                     gr.Textbox(label="Chapter Number", value="all"),
-                     gr.Dropdown(label="Voice", value='', choices=voices),
-                     gr.Dropdown(label="Voice Wav", value="british-man-1.wav", choices=voicewavs),
-                ],
-                outputs="textbox"),
-            gr.Interface(fn=audioapp.buildmp3,
-                         inputs=[gr.Dropdown(label="Folder Name", choices=booksapp.list()),
-                                 gr.Textbox(label="Speed", value="1.1")],
-                         outputs="audio")
-        ], [
-            "Audio Tester", "Generate Chapter(s)", "Convert to MP3"
-        ]))
-    except ImportError as e:
-        if config.getconfig("NOVELAI_DEBUG"):
-            print(e)
-            print("Skipping audioapp")
+    navs.append("Step 4: Generate Audio")
+    interfaces.append(gr.TabbedInterface([
+        gr.Interface(fn=audioapp.generate, inputs=[
+            gr.Textbox(label="Text", value="Please excuse my dear aunt sally"),
+            gr.Dropdown(label="Voice", value='', choices=voices),
+            gr.Dropdown(label="Voice Wav", value="british-man-1.wav", choices=voicewavs),
+        ], outputs="audio"),
+        gr.Interface(fn=audioapp.chapter, inputs=[
+            gr.Dropdown(label="Folder Name", choices=booksapp.list()),
+                 gr.Textbox(label="Chapter Number", value="all"),
+                 gr.Dropdown(label="Voice", value='', choices=voices),
+                 gr.Dropdown(label="Voice Wav", value="british-man-1.wav", choices=voicewavs),
+            ],
+            outputs="textbox"),
+        gr.Interface(fn=audioapp.buildmp3,
+                     inputs=[gr.Dropdown(label="Folder Name", choices=booksapp.list()),
+                             gr.Textbox(label="Speed", value="1.1")],
+                     outputs="audio")
+    ], [
+        "Audio Tester", "Generate Chapter(s)", "Convert to MP3"
+    ]))
 
     # Config
     interfaces.append(gr.TabbedInterface([
