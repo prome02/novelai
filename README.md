@@ -1,4 +1,4 @@
-![novelai.gif](novelai.jpg)
+<img src="novelai3.jpg" alt="logo" style="width:640px;"/>
 
 # NovelAI
 
