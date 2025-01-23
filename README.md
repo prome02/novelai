@@ -4,9 +4,9 @@ NovelAI is an open-source project designed to empower would-be authors by levera
 
 Note: This is mostly a hobby project of mine, so set expectations accordingly! 
 
-![novelai.gif](novelai.gif)
-
 [Sample Novel](books/samplenovel) ([txt](books/samplenovel/book.md), [docx](books/samplenovel/book.docx), [mp3](books/samplenovel/audiobook.mp3))
+
+![novelai.gif](novelai.gif)
 
 ## Features
 
@@ -122,7 +122,7 @@ You will need Python installed. I document what version I normally use in .pytho
 4. **N-Shot**: In some cases, I provide multiple examples (see templates/generatechapter.jinja2) to help it to pick up on style and formatting. 
 5. **Formatted Responses**: I prompt the LLM to output as JSON providing samples (at times leveraging N-Shot) to get it to output in JSON. Note also that I already start its repsonse with "```json" in many cases so that it will respond with JSON and close the response with tick marks so that I know that it is done and stop receiving more characters.
 6. **Text to Speech**: I am using the [TTS library](https://github.com/coqui-ai/TTS) by coqui-ai as well as (by default) its [XTTS-V2](https://huggingface.co/coqui/XTTS-v2) model which seems to provide excellent results. Note that it is unclear what its licensing model will be since coqui seems to have shut down (though its model and tools will live in, I hope). I then leverage [ffmpeg](https://ffmpeg.org/)
-6. **Automatic JSON clenaup**: I am using the LLM to clean up JSON if it sends back JSON that is invalid. 
+7**Automatic JSON clenaup**: I am using the LLM to clean up JSON if it sends back JSON that is invalid. 
 
 ## Contributing
 
@@ -141,6 +141,7 @@ We welcome contributions from the community! To contribute:
 - [ ] Expand export options (e.g., EPUB, Kindle formats).
 - [ ] More and better labeled voices and voice samples
 - [ ] Enhance security and privacy measures for user data (do not run this on the internet - it needs some security hardening to prevent reading/writing files outside of books directory)
+- [ ] Generate windows, linux, and mac installers with [PyInstaller](https://pyinstaller.org/en/stable/) or another tool like it. 
 
 ## License
 
