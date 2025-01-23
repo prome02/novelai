@@ -1,0 +1,33 @@
+{
+  "number": "Chapter 5",
+  "title": "The Betrayal of Trust",
+  "summary_paragraph": "Edward Scissorhands is captured by vampire guards, but Emily rescues him from a dungeon cell and helps plan a daring rescue mission for Lila. They successfully infiltrate the castle using a secret entrance and free Lila, but Caspian is still at large.",
+  "settings": [
+    {
+      "name": "the castle",
+      "description": "a fortress with winding corridors and secret entrances, home to vampire guards and Caspian"
+    },
+    {
+      "name": "the dungeon cell",
+      "description": "a dingy underground room where Edward is held captive after being captured by the vampires"
+    }
+  ],
+  "characters": [
+    {
+      "name": "Edward Scissorhands",
+      "description": "the protagonist, a half-human with scissored hands who seeks to defeat Caspian and free Lila; he is determined and brave but also struggles with feelings of guilt and anger"
+    },
+    {
+      "name": "Lila",
+      "description": "a human who has been captured by the vampires; she is resourceful and determined, but also haunted by her experiences in captivity"
+    },
+    {
+      "name": "Emily",
+      "description": "a human who helps Edward and his friends plan a rescue mission for Lila; she is clever and resourceful, with a talent for gathering information and planning strategies"
+    },
+    {
+      "name": "Jasper",
+      "description": "one of Edward's friends, who helps him in the battle against the vampires; he is brave and loyal, but also has his own ideas about how to defeat Caspian"
+    }
+  ]
+}

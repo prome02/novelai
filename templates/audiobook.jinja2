@@ -1,0 +1,7 @@
+This is {{ title }} by {{ author | default("AI Studio") }}.
+{{ description }}
+...
+{% for chapter in chapters -%}
+Chapter {{ loop.index }}: {{ chapter.title }} ...
+{{ chapter.chaptercontents | replace("\n\n", "\n") | replace("\n\n", "\n") | replace("---", ".....") }}
+{% endfor %}

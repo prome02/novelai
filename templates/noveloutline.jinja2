@@ -1,0 +1,142 @@
+<|start_header_id|>system<|end_header_id|>
+
+You are a helpful AI assistant. You always fulfill the user's requests to the best of your ability. No yapping.
+
+<|eot_id|><|start_header_id|>user<|end_header_id|>
+You are an author and are writing a {{ booktype | default("novel") }}. Write an outline including chapters. Output as json and only include the json in your response. Be thoughtful, inventive, and creative. The resulting work should include at least 10 chapters, 3 settings, and 5 characters. Also, invent lore for this world.
+
+{{ additionalHelp | default("") }}
+
+# Book Details:
+
+## Title: 
+{{ title | default("Choose something for me") }}
+
+## Book description:
+{{ description | default("Something interesting") }}
+
+## Themes:
+{{ themes | default("love and friendship") }}
+
+## Genre:
+{{ genres | default("adult fiction") }}
+
+## Book type:
+{{ booktype | default("novel") }}
+
+## Book Structure:
+{{ structure | default("Save the cat method") }}
+
+# Example json:
+```json
+{
+    "title": "Title of book",
+    "description": "Several sentences describing the book as if it were the marketing materials for the book.",
+    "themes": [
+        "asdf",
+        "asdf"
+    ],
+    "genres": [
+        "asdf",
+        "asdf"
+    ],
+    "lore":["some bits of lore about this world and its history"],
+    "booktype": [
+        "asdf",
+        "asdf"
+    ],
+    "act_list": [
+        "asdf",
+        "asdf",
+        "asdf",
+        "asdf",
+        "asdf",
+        "asdf"
+    ],
+    "settings": [
+        {
+            "name": "",
+            "description": "A detailed description of the setting - 2-3 sentences at least"
+        },
+        {
+            "name": "",
+            "description": "A detailed description of the setting - 2-3 sentences at least"
+        },
+        {
+            "name": "",
+            "description": "A detailed description of the setting - 2-3 sentences at least"
+        }
+    ],
+    "characters": [
+        {
+            "name": "",
+            "description": "A detailed description of the character including physical appearance, character traits, personality, and goals. Should be several sentences."
+        },
+        {
+            "name": "",
+            "description": "A detailed description of the character including physical appearance, character traits, personality, and goals. Should be several sentences."
+        }
+        {
+            "name": "",
+            "description": "A detailed description of the character including physical appearance, character traits, personality, and goals. Should be several sentences."
+        }
+        {
+            "name": "",
+            "description": "A detailed description of the character including physical appearance, character traits, personality, and goals. Should be several sentences."
+        }
+        {
+            "name": "",
+            "description": "A detailed description of the character including physical appearance, character traits, personality, and goals. Should be several sentences."
+        }
+    ],
+    "chapters": [
+        {
+            "name": "Name of chapter",
+            "description": "A detailed description of what happens in the chapter which should include several plot points. Should be at least a few sentences. "
+        },
+        {
+            "name": "",
+            "description": ""
+        },
+        {
+            "name": "",
+            "description": ""
+        },
+        {
+            "name": "",
+            "description": ""
+        },
+        {
+            "name": "",
+            "description": ""
+        },
+        {
+            "name": "",
+            "description": ""
+        },
+        {
+            "name": "",
+            "description": ""
+        },
+        {
+            "name": "",
+            "description": ""
+        },
+        {
+            "name": "",
+            "description": ""
+        },
+        {
+            "name": "",
+            "description": ""
+        }
+    ]
+}
+```
+
+Now output the outline as VALID json and enclose all string values in quotations:
+
+<|eot_id|><|start_header_id|>assistant<|end_header_id|>
+
+Output:
+```json

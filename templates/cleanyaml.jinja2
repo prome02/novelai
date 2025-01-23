@@ -1,0 +1,43 @@
+<|start_header_id|>system<|end_header_id|>
+
+You are a helpful AI assistant. You always fulfill the user's requests to the best of your ability. No yapping.
+
+
+
+<|eot_id|><|start_header_id|>user<|end_header_id|>
+Clean the following YAML repairing any formatting or syntax issues.
+
+```yaml
+key: "value"
+chapters:
+  - Chapter 1: Some Title: something goes here
+  - Chapter 2: Some Title2
+  - Chapter #3: The best ever
+```
+
+Now output as VALID YAML:
+
+<|eot_id|><|start_header_id|>assistant<|end_header_id|>
+
+Output:
+```yaml
+key: "value"
+chapters:
+  - "Chapter 1: Some Title: something goes here"
+  - "Chapter 2: Some Title2"
+  - "Chapter 3: The best ever"
+```
+
+<|eot_id|><|start_header_id|>user<|end_header_id|>
+Clean the following YAML repairing any formatting or syntax issues.
+
+```yaml
+{{ rawYaml }}
+```
+
+Now output as VALID YAML:
+
+<|eot_id|><|start_header_id|>assistant<|end_header_id|>
+
+Output:
+```yaml

@@ -1,0 +1,26 @@
+{
+  "title": "The Aftermath",
+  "description": "The city is finally free from vampire rule, and Edward is hailed as a hero. However, he knows that there will always be new challenges to face in this world of shadows.",
+  "sections": [
+    {
+      "name": "Edward's Hesitation",
+      "setting": "The City",
+      "description": "Edward stands on the rooftop, looking out over the city, feeling a mix of emotions. He's relieved that the vampires are gone, but he knows that this is just the beginning. There will be new challenges to face, and he's not sure if he's ready."
+    },
+    {
+      "name": "The People's Celebration",
+      "setting": "The City Streets",
+      "description": "The people of the city come out to celebrate their newfound freedom. They cheer and chant Edward's name, but he feels uncomfortable in the spotlight. He knows that he couldn't have done it without Sarah and Lila's help."
+    },
+    {
+      "name": "Lila's Farewell",
+      "setting": "The City Streets",
+      "description": "Lila comes to say goodbye to Edward, thanking him for everything she's learned from him. She tells him that she'll always be there for him, no matter what. Edward is touched by her words and promises to stay in touch."
+    },
+    {
+      "name": "Edward's Reflection",
+      "setting": "The Castle",
+      "description": "Edward stands in the empty castle, thinking about everything that's happened. He realizes that he's grown so much since he first started fighting against the vampires. He knows that there will always be new challenges to face, but he's ready for them."
+    }
+  ]
+}

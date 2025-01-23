@@ -1,0 +1,163 @@
+<|start_header_id|>system<|end_header_id|>
+
+You are a helpful, smart, kind, and efficient AI assistant and writer. You always fulfill the user's requests to the best of your ability. You are creative and thoughtful and the content you write is thoughtful and engaging. 
+
+
+
+
+
+<|eot_id|><|start_header_id|>user<|end_header_id|>
+
+Write the contents of a scene of Chapter 5 Tests, Allies, and Enemies described below focusing on appropriate dialogue as well as the thoughts and feelings of the characters. Describe the setting in detail, too. Just write this scene and stop. Do not include a chapter or section header.
+
+# Scene Description
+
+The duo struggles to survive the harsh conditions of the wilderness, from finding food and shelter to avoiding deadly predators. Along the way, they encounter a group of nomads who offer them guidance and supplies.
+
+# Book Details:
+
+## Themes:
+['Love', 'Friendship', 'Perseverance']
+
+## Genre:
+['Teen Fiction']
+
+# Chapter Details
+
+Chapter Name: Tests, Allies, and Enemies
+Scene Description: The duo struggles to survive the harsh conditions of the wilderness, from finding food and shelter to avoiding deadly predators. Along the way, they encounter a group of nomads who offer them guidance and supplies.
+Setting: The Wilderness
+
+Characters:
+Aleximandra: The protagonist, a free-spirited teenager who dreams of escaping her mundane life.
+Jakereshimushka: A charming and resourceful friend who joins Aleximandra on her journey.
+
+
+# Instructions
+
+Write the contents of the next scene in which the following happens:
+
+The duo struggles to survive the harsh conditions of the wilderness, from finding food and shelter to avoiding deadly predators. Along the way, they encounter a group of nomads who offer them guidance and supplies.
+
+
+
+<|eot_id|><|start_header_id|>assistant<|end_header_id|>
+
+Chapter 5 Tests, Allies, and Enemies:
+Scene 1 Contents:
+
+Now I will output the prose of this chapter's section and nothing else. It will be 5 to 15 paragraphs in length.
+
+```markdown
+Aleximandra squinted against the piercing sunlight as she surveyed their surroundings. It was a barren wasteland - the ground was covered in sand and spare trees and patches of dry grass spotted the countryside. Rolling hills meant they could not see far. They had been walking for hours, but the landscape still looked unfamiliar. 
+
+She shifted her backpack, feeling the weight of her supplies digging into her shoulders. "We need to find shelter," she said, her voice hoarse from thirst. She wore tattered jeans, combat boots, and a grey sweatshirt. She was covered in dust and had not showered for days.
+
+Jakereshimushka nodded, his eyes scanning the terrain. "I see a ridge up ahead. We might be able to make it work." Jakereshimushka wore a tattered green combat uniform, a remnant of his former life.
+
+Together they trudged towards the ridge, their footsteps quiet on the dry earth. As they climbed higher, Aleximandra spotted a group of nomads gathered near the top. They were dressed in makeshift clothing and carried an assortment of tools, including what looked like handmade bows.
+
+"Looks like we're not alone," Jakereshimushka said, his voice filled with caution. *Gosh, these people look ancient*, he thought.
+
+Aleximandra's heart quickened as she approached the group. "Hello," she called out, trying to sound friendly.
+
+One of the nomads, a grizzled old man with a scar above his left eyebrow, stepped forward. "Greetings, travelers. We are Kael's people. What brings you to our lands?"
+
+Aleximandra hesitated, unsure how much to reveal. But Jakereshimushka jumped in, launching into an elaborate story about their journey and the reason for their visit. 
+
+Kael listened intently, his eyes narrowing as he processed Jakereshimushka's words. "We have food and water," he said finally. "But you must first prove your worth. Can you help us with a task?"
+
+Aleximandra felt a surge of excitement at the prospect of gaining allies in this harsh environment. She nodded eagerly, ready to do whatever it took to secure their place among Kael's people.
+
+"What do we need to do?" she asked, her voice firm and resolute.
+
+Kael smiled, his eyes glinting with amusement. "We have a rival clan that has been causing trouble in the area. We need you to scout them out and bring back information about their numbers and movements."
+
+Jakereshimushka grinned. "Sounds like a challenge," he said, flexing his fists.
+
+Aleximandra felt a rush of adrenaline at the prospect of facing new enemies. But she was determined not to let fear get the best of her. "We're in," she said, turning to Jakereshimushka with a confident smile. 
+
+---
+
+```
+
+I hope you liked this. Let me know if there is anything else you want me to write about.
+
+<|eot_id|><|start_header_id|>user<|end_header_id|>
+
+Write the contents of a scene of Chapter {{chapter}} {{chapters[chapter-1].name}} described below focusing on appropriate dialogue as well as the thoughts and feelings of the characters. Just write this scene and stop. Be creative and thoughtful. Do not include a chapter or section header. {{ additionalHelp | default("") }}
+
+# Scene Description
+
+{{ sections[0].description }}
+
+# Book Details:
+
+## Themes:
+{{ themes | default("love and friendship") }}
+
+## Genre:
+{{ genres | default("adult fiction") }}
+
+## Lore
+{{  lore | default("") | string }}
+
+# Chapter Details
+
+Chapter Name: {{chapters[chapter-1].name}}
+Scene Description: {{ section.description }}
+Setting: {{ section.setting }}
+
+Lore:
+{{  lore | default("") | string }}
+
+Characters:
+{% for character in characters -%}
+{{ character.name }}: {{ character.description }} {{ character.physical_appearance | default("") }} {{ character.character | default("") }} {{ character.goals | default("") }}
+{% endfor %}
+
+Previous Chapter Context:
+{% for previousChapter in priorChapters -%}
+- {{ previousChapter.title }}: {{ previousChapter.summary_paragraph }}
+{% endfor %}
+
+{%- for previousSection in sectionssofar -%}
+
+# Instructions
+
+Write the contents of the next scene in which the following happens:
+
+{{ previousSection.description }}
+
+<|eot_id|><|start_header_id|>assistant<|end_header_id|>
+
+Chapter {{chapter}} {{chapters[chapter-1].name}}:
+Scene {{ loop.index }} Contents:
+Scene {{ loop.index }} Description: {{ previousSection.description }}
+
+Now I will output the prose of this chapter's section and nothing else continuing from where the previous chapter/scene left off. I will be detailed and creative, focusing on the setting, characters thoughts, and thoughtful and intriguing dialogue. It will be 5 to 15 paragraphs in length.
+
+```markdown
+{{ previousSection.contents }}
+---
+```
+
+<|eot_id|><|start_header_id|>user<|end_header_id|>
+
+{% endfor %}
+
+# Instructions
+
+Write the contents of the next scene in which the following happens:
+
+{{ section.description }}
+
+<|eot_id|><|start_header_id|>assistant<|end_header_id|>
+
+Chapter {{chapter}} {{chapters[chapter-1].name}}:
+Scene {{ sectionssofar|length + 1 }} Contents:
+Scene {{ sectionssofar|length + 1 }} Description: {{ section.description }}
+
+Now I will output the prose of this section / scene and nothing else continuing from where the previous chapter/scene left off. It will be 5 to 15 paragraphs in length.
+
+```markdown

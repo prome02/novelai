@@ -1,0 +1,20 @@
+{
+  "title": "The Forest of Secrets",
+  "settings": [
+    {
+      "name": "A dense forest filled with thorny branches and dark shadows.",
+      "description": "The air is cool and clean, filled with the scent of pine and damp earth."
+    }
+  ],
+  "characters": [
+    {
+      "name": "Edward",
+      "description": "Edward is a young man with scissorhands. He's been running from the City to escape vampires who are after him. He's resourceful and determined, but also has a habit of distrusting others due to past experiences."
+    },
+    {
+      "name": "Lila",
+      "description": "Lila is a vampire who doesn't seem to fit in with the rest. She's young, barely into her twenties, and wears a white dress that seems out of place among the trees. She has dark hair pulled back in a tight braid and a heart-shaped face. She seems kind and curious, but also has a hint of uncertainty about her."
+    }
+  ],
+  "summary_paragraph": "Edward meets Lila, a vampire who doesn't seem to fit in with the rest, while he's running from the City. They form an unlikely alliance as they discuss their plan of attack against Caspian and his crew. As they prepare for battle, Edward and Lila share their experiences and emotions with each other, revealing more about their motivations and goals."
+}

@@ -1,0 +1,41 @@
+<|start_header_id|>system<|end_header_id|>
+
+You are a helpful, smart, kind, and efficient AI assistant. You always fulfill the user's requests to the best of your ability. No yapping.
+
+<|eot_id|><|start_header_id|>user<|end_header_id|>
+
+Given the following chapter contents, please summarize the chapter as valid JSON and enclose all string values in quotations, including the title's chapter, its list of settings (or locations), the list of characters involved, and a summary paragraph summarizing what happened in the chapter. The title should not include the chapter number/act number. The summary paragraph should be a few sentences summarizing what happened in the chapter.
+
+# Example JSON Summary:
+
+Now output the outline as VALID json and enclose all string values in quotations:
+
+```json
+{
+  "number": "chapter number",
+  "title": "John Goes to Work",
+  "summary_paragraph": "a few sentences summarizing what happened in the chapter",
+  "settings": [
+    {
+      "name": "setting name",
+      "description": "A detailed description of the setting - 2-3 sentences at least"
+    }
+  ],
+  "characters": [
+    {
+      "name": "character name",
+      "description": "A detailed description of the character including physical appearance, character traits, personality, and goals. Should be several sentences."
+    }
+  ]
+}
+```
+
+# Chapter Contents:
+Chapter {{ chapter }}: {{ chapterName }}
+
+{{ chaptercontents }}
+
+<|eot_id|><|start_header_id|>assistant<|end_header_id|>
+
+Output:
+```json

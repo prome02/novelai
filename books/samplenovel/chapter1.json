@@ -1,0 +1,29 @@
+{
+  "title": "The City of Shadows",
+  "number": "",
+  "summary_paragraph": "Edward Scissorhands navigated through a hidden market where vampires are present, searching for Sarah or Emily. He encounters a young woman who is different from other vampires, named Sarah, and forms an alliance with her to take down Caspian and his crew.",
+  "settings": [
+    {
+      "name": "the narrow alleys",
+      "description": "A labyrinth of shadows where humans live in fear of the creatures that rule over them."
+    },
+    {
+      "name": "a small market tucked away between two larger buildings",
+      "description": "A hidden place, one that only humans knew about. It was crowded with humans haggling over goods and sharing information in hushed tones."
+    }
+  ],
+  "characters": [
+    {
+      "name": "Edward Scissorhands",
+      "description": "He is a young man with scissorhands who has been fighting against the vampires since as long as he can remember. He is searching for hope in this dark and oppressive world."
+    },
+    {
+      "name": "Sarah",
+      "description": "A vampire but different from others, she is kind and friendly towards Edward. She believes in him and their cause to take down Caspian and his crew."
+    },
+    {
+      "name": "Lila",
+      "description": "A vampire who is a friend of Sarah's. She is determined and brave, helping Edward and Sarah in the fight against the vampires."
+    }
+  ]
+}

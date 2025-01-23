@@ -1,0 +1,29 @@
+{
+  "number": "7",
+  "title": "The Rescue Mission",
+  "summary_paragraph": "Edward and his friends plan a rescue mission to save Lila from Caspian's maximum-security wing in the castle. They come up with a strategy, create a diversion, navigate through hidden passages, disable poison needle traps, and ultimately free Lila from her cell.",
+  "settings": [
+    {
+      "name": "The Castle",
+      "description": "A medieval-style fortress with high walls, dark corridors, and secret passageways. It is the stronghold of Caspian's power and a maximum-security wing where he keeps his most valuable captives."
+    }
+  ],
+  "characters": [
+    {
+      "name": "Edward",
+      "description": "The main protagonist of the story. He has scissorhands, which make him skilled at navigating through tight spaces. He is determined to rescue Lila and willing to take risks to do so."
+    },
+    {
+      "name": "Jasper",
+      "description": "A close friend of Edward's who helps him in his mission. He is quick-witted and resourceful, often coming up with creative solutions to the challenges they face."
+    },
+    {
+      "name": "Emily",
+      "description": "Another member of the group who assists in their rescue mission. She has a deep knowledge of the castle's layout and hidden passages, which proves invaluable in their quest to free Lila."
+    },
+    {
+      "name": "Lila",
+      "description": "A captive in Caspian's maximum-security wing who is being held against her will. Edward and his friends are determined to rescue her and bring her to safety."
+    }
+  ]
+}

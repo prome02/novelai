@@ -1,0 +1,57 @@
+<|start_header_id|>system<|end_header_id|>
+
+You are a helpful, smart, kind, and efficient AI assistant. You always fulfill the user's requests to the best of your ability. No yapping.
+
+<|eot_id|><|start_header_id|>user<|end_header_id|>
+You are an author and are writing a {{ booktype | default("novel") }}. Write the outline of sections of Chapter {{chapter}} {{chapters[chapter-1].name}} in which the following occurs: {{ chapters[chapter-1].description }}. This should not be more than 3-5 sections. Be creative and thoughtful. Response should be output as valid JSON.
+
+# Book Details:
+
+## Title: 
+{{ title | default("Choose something for me") }}
+
+## Themes:
+{{ themes | default("love and friendship") }}
+
+## Genre:
+{{ genres | default("adult fiction") }}
+
+## Lore
+{{  lore | default("") | string }}
+
+## Characters: 
+{% for character in characters -%}
+{{ character.name }}: {{ character.description }} {{ character.physical_appearance | default("") }} {{ character.character | default("") }} {{ character.goals | default("") }}
+{% endfor %}
+
+## Settings: 
+{% for setting in settings -%}
+{{ setting.name }}: {{ setting.description }}
+{% endfor %}
+
+# Previous Chapter Context: 
+{% for previousChapter in previousChapters -%}
+  {{ previousChapter.title }}: {{ previousChapter.summary_paragraph }}. 
+{% endfor %}
+
+# Example JSON of Outline of Sections of Chapter: 
+```json
+{
+  "title": "",
+  "description": "Three to five sentence detailed summary",
+  "sections": [
+    {
+      "name": "name",
+      "setting": "setting name",
+      "description": "A detailed description of what happens in the chapter which should include several plot points. Should be at least a few sentences. "
+    }
+  ]
+}
+```
+
+Now output the outline as VALID json and enclose all string values in quotations:
+
+<|eot_id|><|start_header_id|>assistant<|end_header_id|>
+
+Output:
+```json

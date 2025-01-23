@@ -1,0 +1,411 @@
+<|start_header_id|>system<|end_header_id|>
+
+You are a helpful AI assistant. You always fulfill the user's requests to the best of your ability. No yapping.
+
+<|eot_id|><|start_header_id|>user<|end_header_id|>
+You are an author and are writing a {{ booktype | default("novel") }}. Be inventive and write a title, description, list of settings and characters. Output as json and only include the json in your response. Be thoughtful, inventive, and creative. The resulting work should include 5 settings, and 5 characters. Also, invent lore, which should include the relevant historical details about the characters, settings, and world. {{ additionalHelp | default("") }}
+
+# Book Details:
+
+## Title: 
+{{ title | default("Choose something for me") }}
+
+## Book description:
+{{ description | default("Something interesting") }}
+
+## Themes:
+{{ themes | default("love and friendship") }}
+
+## Genre:
+{{ genres | default("adult fiction") }}
+
+## Book type:
+{{ booktype | default("novel") }}
+
+## Book Structure:
+3-Act Structure
+
+# Example json:
+```json
+{
+    "title": "title of novel",
+    "description": "Description/synopsis of novel in 2-3 sentences. Should be written as if it were the marketing materials for the novel and NOT include the ending of the novel. ",
+    "themes": [
+        "asdf",
+        "asdf"
+    ],
+    "genres": [
+        "asdf",
+        "asdf"
+    ],
+    "booktype": [
+        "asdf",
+        "asdf"
+    ],
+    "lore": [
+        "some bit of lor about this world"
+    ],
+    "settings": [
+        {
+            "name": "",
+            "description": "A detailed description of the setting - 2-3 sentences at least"
+        },
+        {
+            "name": "",
+            "description": "A detailed description of the setting - 2-3 sentences at least"
+        }
+    ],
+    "characters": [
+        {
+            "name": "",
+            "physical_appearance": "",
+            "character": "",
+            "personality": "",
+            "goals": "",
+            "background_story": "",
+            "description": "A detailed description of the character including physical appearance, character traits, personality, and goals. Should be several sentences."
+        },
+        {
+            "name": "",
+            "physical_appearance": "",
+            "character": "",
+            "personality": "",
+            "goals": "",
+            "background_story": "",
+            "description": "A detailed description of the character including physical appearance, character traits, personality, and goals. Should be several sentences."
+        }
+    ]
+}
+```
+
+Now output the response as VALID json:
+
+<|eot_id|><|start_header_id|>assistant<|end_header_id|>
+
+Now I will output story title, description, characters, and settings. The response is valid JSON making sure to escape special characters where appropriate:
+
+Output:
+
+```json
+<|endstep|>
+
+
+
+
+
+<|start_header_id|>system<|end_header_id|>
+
+You are a helpful AI assistant. You always fulfill the user's requests to the best of your ability. No yapping.
+
+<|eot_id|><|start_header_id|>user<|end_header_id|>
+You are an author and are writing a {{ booktype | default("novel") }}. Be inventive write a list of the 3 acts for this novel. For each act, include the name and a description. Output as json and only include the json in your response. Be thoughtful, inventive, and creative. The result output should include 3 acts, each with a name a detailed description of what happens in the act according to the 3-act story structure. {{ additionalHelp | default("") }}
+
+# Book Details:
+
+## Title:
+{{ title | default("Choose something for me") }}
+
+## Book description:
+{{ description | default("Something interesting") }}
+
+## Themes:
+{{ themes | default("love and friendship") }}
+
+## Genre:
+{{ genres | default("adult fiction") }}
+
+## Book type:
+{{ booktype | default("novel") }}
+
+## Book Structure:
+3-Act Structure
+
+# Book Details
+
+```json
+{{ responses[0].text  }}
+```
+
+# Example Output JSON:
+```json
+{
+    "acts": [
+        {
+            "name": "First Act",
+            "description": "The first act is usually used for exposition, to establish the main characters, their relationships, and the world they live in. Later in the first act, a dynamic, on-screen incident occurs, known as the inciting incident, or catalyst, that confronts the main character (the protagonist), and whose attempts to deal with this incident lead to a second and more dramatic situation, known as the first plot point, which (a) signals the end of the first act, (b) ensures life will never be the same again for the protagonist and (c) raises a dramatic question that will be answered in the climax of the film. The dramatic question should be framed in terms of the protagonist's call to action, (Will X recover the diamond? Will Y win their love interest? Will Z capture the killer?)",
+        },
+        {
+            "name": "Second Act",
+            "description": "The second act, also referred to as "rising action", typically depicts the protagonist's attempt to resolve the problem initiated by the first turning point, only to find themselves in ever worsening situations. Part of the reason protagonists seem unable to resolve their problems is because they do not yet have the skills to deal with the forces of antagonism that confront them. They must not only learn new skills but arrive at a higher sense of awareness of who they are and what they are capable of, in order to deal with their predicament, which in turn changes who they are. This is referred to as character development or a character arc. This cannot be achieved alone and they are usually aided and abetted by mentors and co-protagonists.",
+        },
+        {
+            "name": "Final Act",
+            "description": "The third act features the resolution of the story and its subplots. The climax is the scene or sequence in which the main tensions of the story are brought to their most intense point and the dramatic question answered, leaving the protagonist and other characters with a new sense of who they really are.[1]"",
+        }
+    ]
+}
+```
+
+Now output the outline as VALID json:
+
+<|eot_id|><|start_header_id|>assistant<|end_header_id|>
+
+Now I will output a list of the acts and their descriptions as JSON. I will only include the acts and their descriptions and nothing else. For each act, I have invented a name and a description of what happens in the act.
+
+List of Acts as a JSON object like in Example Output JSON:
+
+```json
+<|endstep|>
+
+
+
+
+<|start_header_id|>system<|end_header_id|>
+
+You are a helpful AI assistant. You always fulfill the user's requests to the best of your ability. No yapping.
+
+<|eot_id|><|start_header_id|>user<|end_header_id|>
+You are an author and are writing a {{ booktype | default("novel") }}. Given the following information about a novel, outline a series of chapters for the first act of this novel. Output as json and only include the json in your response. Be thoughtful, inventive, and creative. Make sure to involve different characters in different chapters. The resulting output should include at least 10 chapters. For each chapter, write its name as well as a detailed description of what should happen in the chapter. The name should NOT include the chapter number.
+
+# First Act Description:
+
+```markdown
+{{ responses[1].data.acts[0].description  }}
+```
+
+# Book Details:
+
+{%- set bookdetails = responses[0].data.copy() %}
+{%- do bookdetails.update({"description": responses[1].data.acts[0].description}) %}
+
+```json
+{{ bookdetails | tojson }}
+```
+
+# Example json:
+```json
+{
+    "chapters": [
+        {
+            "name": "Name of Chapter",
+            "description": "A detailed description of what happens in the chapter which should include several plot points. Should be at least a few sentences. "
+        },
+        {
+            "name": "Name of Chapter",
+            "description": "A detailed description of what happens in the chapter which should include several plot points. Should be at least a few sentences. "
+        },
+        {
+            "name": "Name of Chapter",
+            "description": "A detailed description of what happens in the chapter which should include several plot points. Should be at least a few sentences. "
+        },
+        {
+            "name": "Name of Chapter",
+            "description": "A detailed description of what happens in the chapter which should include several plot points. Should be at least a few sentences. "
+        },
+        {
+            "name": "Name of Chapter",
+            "description": "A detailed description of what happens in the chapter which should include several plot points. Should be at least a few sentences. "
+        },
+        {
+            "name": "Name of Chapter",
+            "description": "A detailed description of what happens in the chapter which should include several plot points. Should be at least a few sentences. "
+        },
+        {
+            "name": "Name of Chapter",
+            "description": "A detailed description of what happens in the chapter which should include several plot points. Should be at least a few sentences. "
+        },
+        {
+            "name": "Name of Chapter",
+            "description": "A detailed description of what happens in the chapter which should include several plot points. Should be at least a few sentences. "
+        },
+        {
+            "name": "Name of Chapter",
+            "description": "A detailed description of what happens in the chapter which should include several plot points. Should be at least a few sentences. "
+        }
+    ]
+}
+```
+
+Now output the outline of the First Act as VALID json:
+
+<|eot_id|><|start_header_id|>assistant<|end_header_id|>
+
+I will now output a list of the chapters with their names and descriptions. For each, I have invented a name that does not include the chapter number and a creative and thoughtful description.
+
+Output:
+```json
+<|endstep|>
+
+
+
+
+
+
+<|start_header_id|>system<|end_header_id|>
+
+You are a helpful AI assistant. You always fulfill the user's requests to the best of your ability. No yapping.
+
+<|eot_id|><|start_header_id|>user<|end_header_id|>
+You are an author and are writing a {{ booktype | default("novel") }}. Given the following information about a novel, outline a series of chapters for the second act of this novel. Output as json and only include the json in your response. Be thoughtful, inventive, and creative. Make sure to involve different characters in different chapters. The resulting output should include at least 10 chapters. For each chapter, write its name as well as a detailed description of what should happen in the chapter. The name should NOT include the chapter number.
+
+# Second Act Description:
+
+```markdown
+{{ responses[1].data.acts[1].description  }}
+```
+
+# Book Details:
+
+{%- set bookdetails = responses[0].data.copy() %}
+{%- do bookdetails.update({"description": responses[1].data.acts[1].description}) %}
+
+```json
+{{ bookdetails | tojson }}
+```
+
+# Example json:
+```json
+{
+    "chapters": [
+        {
+            "name": "Name of Chapter",
+            "description": "A detailed description of what happens in the chapter which should include several plot points. Should be at least a few sentences. "
+        },
+        {
+            "name": "Name of Chapter",
+            "description": "A detailed description of what happens in the chapter which should include several plot points. Should be at least a few sentences. "
+        },
+        {
+            "name": "Name of Chapter",
+            "description": "A detailed description of what happens in the chapter which should include several plot points. Should be at least a few sentences. "
+        },
+        {
+            "name": "Name of Chapter",
+            "description": "A detailed description of what happens in the chapter which should include several plot points. Should be at least a few sentences. "
+        },
+        {
+            "name": "Name of Chapter",
+            "description": "A detailed description of what happens in the chapter which should include several plot points. Should be at least a few sentences. "
+        },
+        {
+            "name": "Name of Chapter",
+            "description": "A detailed description of what happens in the chapter which should include several plot points. Should be at least a few sentences. "
+        },
+        {
+            "name": "Name of Chapter",
+            "description": "A detailed description of what happens in the chapter which should include several plot points. Should be at least a few sentences. "
+        },
+        {
+            "name": "Name of Chapter",
+            "description": "A detailed description of what happens in the chapter which should include several plot points. Should be at least a few sentences. "
+        },
+        {
+            "name": "Name of Chapter",
+            "description": "A detailed description of what happens in the chapter which should include several plot points. Should be at least a few sentences. "
+        }
+    ]
+}
+```
+
+Now output the outline of the Second Act as VALID json:
+
+<|eot_id|><|start_header_id|>assistant<|end_header_id|>
+
+I will now output a list of the chapters with their names and descriptions. For each, I have invented a name that does not include the chapter number and a creative and thoughtful description.
+
+Output:
+```json
+<|endstep|>
+
+
+
+
+
+<|start_header_id|>system<|end_header_id|>
+
+You are a helpful AI assistant. You always fulfill the user's requests to the best of your ability. No yapping.
+
+<|eot_id|><|start_header_id|>user<|end_header_id|>
+You are an author and are writing a {{ booktype | default("novel") }}. Given the following information about a novel, outline a series of chapters for the third act of this novel. This is the last act of the novel, so the story should come to a close. Output as json and only include the json in your response. Be thoughtful, inventive, and creative. Make sure to involve different characters in different chapters. The resulting output should include at least 10 chapters. For each chapter, write its name as well as a detailed description of what should happen in the chapter. The name should NOT include the chapter number.
+
+# Third and Final Act Description:
+
+```markdown
+{{ responses[1].data.acts[2].description  }}
+```
+
+# Book Details:
+
+{%- set bookdetails = responses[0].data.copy() %}
+{%- do bookdetails.update({"description": responses[1].data.acts[2].description}) %}
+
+```json
+{{ bookdetails | tojson }}
+```
+
+# Example json:
+```json
+{
+    "chapters": [
+        {
+            "name": "Name of Chapter",
+            "description": "A detailed description of what happens in the chapter which should include several plot points. Should be at least a few sentences. "
+        },
+        {
+            "name": "Name of Chapter",
+            "description": "A detailed description of what happens in the chapter which should include several plot points. Should be at least a few sentences. "
+        },
+        {
+            "name": "Name of Chapter",
+            "description": "A detailed description of what happens in the chapter which should include several plot points. Should be at least a few sentences. "
+        },
+        {
+            "name": "Name of Chapter",
+            "description": "A detailed description of what happens in the chapter which should include several plot points. Should be at least a few sentences. "
+        },
+        {
+            "name": "Name of Chapter",
+            "description": "A detailed description of what happens in the chapter which should include several plot points. Should be at least a few sentences. "
+        },
+        {
+            "name": "Name of Chapter",
+            "description": "A detailed description of what happens in the chapter which should include several plot points. Should be at least a few sentences. "
+        },
+        {
+            "name": "Name of Chapter",
+            "description": "A detailed description of what happens in the chapter which should include several plot points. Should be at least a few sentences. "
+        },
+        {
+            "name": "Name of Chapter",
+            "description": "A detailed description of what happens in the chapter which should include several plot points. Should be at least a few sentences. "
+        },
+        {
+            "name": "Name of Chapter",
+            "description": "A detailed description of what happens in the chapter which should include several plot points. Should be at least a few sentences. "
+        }
+    ]
+}
+```
+
+Now output the outline of the Third and Final Act as VALID json.
+
+<|eot_id|><|start_header_id|>assistant<|end_header_id|>
+
+I will now output a list of the chapters with their names and descriptions. For each, I have invented a name that does not include the chapter number and a creative and thoughtful description.
+
+Output:
+```json
+<|endstep|>
+
+
+
+
+<|start_header_id|>output<|end_header_id|>
+{%- set combined = responses[0].data %}
+
+{%- do combined.update({"chapters": []}) %}
+{%- for chapter in responses[2].data.chapters -%}{% do combined.chapters.append(chapter) %}{% endfor %}
+{%- for chapter in responses[3].data.chapters -%}{% do combined.chapters.append(chapter) %}{% endfor %}
+{%- for chapter in responses[4].data.chapters -%}{% do combined.chapters.append(chapter) %}{% endfor %}
+
+{{ combined  | tojson(indent=2) }}

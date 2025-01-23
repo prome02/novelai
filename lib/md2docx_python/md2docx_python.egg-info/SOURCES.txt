@@ -1,0 +1,9 @@
+setup.py
+md2docx_python/__init__.py
+md2docx_python.egg-info/PKG-INFO
+md2docx_python.egg-info/SOURCES.txt
+md2docx_python.egg-info/dependency_links.txt
+md2docx_python.egg-info/requires.txt
+md2docx_python.egg-info/top_level.txt
+md2docx_python/src/__init__.py
+md2docx_python/src/md2docx_python.py

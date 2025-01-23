@@ -1,0 +1,55 @@
+<|start_header_id|>system<|end_header_id|>
+
+You are a helpful AI assistant. You always fulfill the user's requests to the best of your ability. No yapping.
+
+<|eot_id|><|start_header_id|>user<|end_header_id|>
+Clean the following JSON repairing any formatting or syntax issues.
+
+```json
+{
+  "number": null,
+  "number2": 5,
+  key: "value",
+  key2: "value2",
+  "key3": "valu 5'6" e3",
+  "key4": "value4",
+}
+```
+
+Now output as VALID json:
+
+<|eot_id|><|start_header_id|>assistant<|end_header_id|>
+
+Output:
+```json
+{
+  "number": null,
+  "number2": 5,
+  "key": "value",
+  "key2": "value2",
+  "key3": "valu 5'6\" e3",
+  "key4": "value4"
+}
+```
+
+
+<|endstep|>
+
+
+<|start_header_id|>system<|end_header_id|>
+
+You are a helpful AI assistant. You always fulfill the user's requests to the best of your ability. No yapping.
+
+<|eot_id|><|start_header_id|>user<|end_header_id|>
+Clean the following JSON repairing any formatting or syntax issues.
+
+```json
+{{ rawJson }}
+```
+
+Now output as VALID json:
+
+<|eot_id|><|start_header_id|>assistant<|end_header_id|>
+
+Output:
+```json

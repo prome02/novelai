@@ -1,0 +1,9 @@
+.DS_Store
+.idea/
+__pycache__
+books/.*
+voices/.*
+templates/.*
+.start*
+out.wav
+tts_output.wav

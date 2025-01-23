@@ -1,0 +1,29 @@
+{
+  "number": "6",
+  "title": "The Dark Night of the Soul",
+  "summary_paragraph": "Edward is struggling with doubts and uncertainty about his mission to fight against vampires. He meets up with Jasper, Sarah, Lila, and other allies who try to reassure him that their efforts are not wasted and that they are making a difference.",
+  "settings": [
+    {
+      "name": "forest",
+      "description": "a dense forest with tall trees and dry underbrush"
+    }
+  ],
+  "characters": [
+    {
+      "name": "Edward",
+      "description": "the protagonist, a young man with scissorhands who is fighting against vampires. He is struggling with doubts and uncertainty about his mission."
+    },
+    {
+      "name": "Jasper",
+      "description": "Edward's closest ally in the fight against vampires. He is practical and determined, but also struggles with doubt and uncertainty."
+    },
+    {
+      "name": "Sarah",
+      "description": "a young woman who has joined Edward and Jasper in their fight against vampires. She is supportive and encouraging, but also struggling with her own doubts and fears."
+    },
+    {
+      "name": "Lila",
+      "description": "a vampire who has defected from Caspian's side and is now fighting alongside Edward and his allies. She is struggling with loyalty to Caspian and questioning the morality of their mission."
+    }
+  ]
+}

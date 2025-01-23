@@ -1,0 +1,37 @@
+{
+  "number": "9",
+  "title": "The Aftermath",
+  "summary_paragraph": "Edward reflects on the aftermath of defeating Caspian and his crew, feeling a sense of uncertainty about what comes next. He spends time with his friends Sarah and Jasper, and reunites with Lila, who seems to have found peace.",
+  "settings": [
+    {
+      "name": "A rooftop overlooking the city",
+      "description": "Edward stands on the rooftop, gazing out at the city below, feeling a sense of uncertainty about what comes next."
+    },
+    {
+      "name": "The city streets",
+      "description": "Edward and his friends walk through the city streets, surrounded by cheering crowds and chanting fans."
+    },
+    {
+      "name": "A castle",
+      "description": "Edward stands alone in an empty castle, reflecting on the past battles and his growth as a person."
+    }
+  ],
+  "characters": [
+    {
+      "name": "Edward",
+      "description": "The protagonist, who has just defeated Caspian and his crew. He feels uncertain about what comes next and is struggling to come to terms with his new reality."
+    },
+    {
+      "name": "Sarah",
+      "description": "One of Edward's friends and allies, who is excited and optimistic about the future."
+    },
+    {
+      "name": "Jasper",
+      "description": "Another one of Edward's friends and allies, who is playful and confident."
+    },
+    {
+      "name": "Lila",
+      "description": "A young woman who has been a key player in the fight against the vampires. She seems to have found peace and is moving on with her life."
+    }
+  ]
+}

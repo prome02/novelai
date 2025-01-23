@@ -1,0 +1,24 @@
+{
+  "title": "The New Beginning",
+  "summary_paragraph": "Edward reflects on the victory over Caspian and his crew, feeling a sense of hope and determination as he looks out at the city. He vows to continue fighting for what is right and protect the innocent. Edward then walks through the city streets with Jasper and Lila, receiving nods of respect and gratitude from humans who live in secret. They eventually discover something mysterious on the horizon but it disappears before they can react. Later, Edward visits an ancient library where he discovers a history of their world that reveals how humans and vampires coexisted for centuries.",
+  "settings": [
+    {
+      "name": "the city",
+      "description": "The city is filled with life and sound, a cacophony of noise that soothes Edward. He sees humans going about their daily business, some reaching out to touch his scissorhands in gratitude."
+    }
+  ],
+  "characters": [
+    {
+      "name": "Edward",
+      "description": "Edward is the protagonist who has fought against Caspian and his crew. He feels a sense of hope and determination as he looks at the city, but also knows there are still challenges ahead. His scissorhands symbolize both strength and heritage."
+    },
+    {
+      "name": "Jasper",
+      "description": "Jasper is Edward's ally who has stood by his side through thick and thin. He's watchful and concerned for Edward's safety, but also excited about the new discoveries they're making."
+    },
+    {
+      "name": "Lila",
+      "description": "Lila is another ally of Edward's who shares his desire to fight for what is right. She's optimistic and determined, ready to face whatever comes next with Edward by her side."
+    }
+  ]
+}
