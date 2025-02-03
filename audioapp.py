@@ -2,6 +2,7 @@
 from pathlib import Path
 import glob
 import os
+import re
 
 import json5
 import typer  # see https://typer.tiangolo.com/tutorial/subcommands/
@@ -85,11 +86,23 @@ def chapter(
 
             # Alt method: Generates lines rather than chapters, but no need - xtts2 supports this natively
             lines = chapter_formatted.split("\n")
+
+            # Add chapter header
+            chapter_name = re.sub(r'^Chapter \d+:?\s*', '', chapter_obj["name"], flags=re.IGNORECASE)
+            lines.insert(0, f"Chapter {str(chapter+1)}. {chapter_name}..")
             
+            # if first chapter add intro to book
+            if idx == 0:
+                lines.insert(0, f"{contents_parsed['title']}")
+                if contents_parsed["author"] is not None:
+                    lines[0] += " by " + contents_parsed["author"]
+                lines[0] += "... "
+
+            # generate each line
             for line_idx, line in enumerate(lines):
                 #print(line)
                 filename = ("books/" + book + "/audiobook-c" + ("{:03}".format(idx + 1)) + "-" +
-                    ("{:04}".format(line_idx + 1)) + ".wav")
+                    ("{:04}".format(line_idx)) + ".wav")
                 if not Path(filename).is_file():
                     generate(line, voice, voice_wav, model, language, filename)
                 else:

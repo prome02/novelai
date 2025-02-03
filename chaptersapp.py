@@ -3,12 +3,11 @@ import os
 from pathlib import Path
 
 import json5
-import retry
 import typer  # see https://typer.tiangolo.com/tutorial/subcommands/
+from retry import retry
 from typing_extensions import Annotated
 
 from config import getconfig
-from retry import retry
 from functions import call_ai_with_template, extract_json, readfile, writefile, clean_json, init_client
 
 # bootstrap typer
@@ -157,6 +156,31 @@ def outline(
     writefile(chapterOutlineFilename, chapterOutlineRaw)
     chapterOutline = json5.loads(chapterOutlineRaw)
     return chapterOutline
+
+def stub(
+    name: Annotated[str, typer.Argument(help="Folder name to read book manifest from")],
+    chapter: Annotated[str, typer.Argument(help="Chapter number to generate")] = "all",
+    sections_count: Annotated[int, typer.Argument(help="Count of scenes to generate")] = 3,
+    stub_contents: Annotated[bool, typer.Argument(help="Whether to stub contents chapterx.txt files")] = False,
+):
+    # load manifest and add on additional variables passed in
+    data = readfile("books/" + name + "/manifest.json")
+    manifest = json5.loads(data)
+    for i in range(1, len(manifest["chapters"]) + 1):
+        if chapter == i or chapter == "all":
+            chapterSummaryFilename = "books/" + name + "/chapter" + str(i) + ".json"
+            if not Path(chapterSummaryFilename).is_file():
+                writefile(chapterSummaryFilename, json5.dumps({
+                    "title": manifest["chapters"][i-1]["name"],
+                    "description": manifest["chapters"][i-1]["description"],
+                    "sections": [{"name": "", "description": ""}] * int(sections_count)
+                }, indent=2, sort_keys=False))
+            else:
+                print("Skipping generating chapter " + str(i) + " as it already exists")
+            if stub_contents:
+                chapter_txt_filename = "books/" + name + "/chapter" + str(i) + ".txt"
+                if not Path(chapter_txt_filename).is_file():
+                    writefile(chapter_txt_filename, "")
 
 @retry(tries=getconfig("RETRY_COUNT"))
 @app.command()

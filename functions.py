@@ -195,3 +195,4 @@ def readfile(filename):
 def writefile(filename, contents):
     with open(filename, "w") as text_file:
         print(contents, file=text_file, end="")
+        return contents

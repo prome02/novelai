@@ -1,18 +1,18 @@
 # Example: reuse your existing OpenAI setup
+import json
 import os
 from pathlib import Path
+
 import json5
-from retry import retry
-
-from config import getconfig
-from lib.md2docx_python.md2docx_python.src.md2docx_python import markdown_to_word
-
 import typer  # see https://typer.tiangolo.com/tutorial/subcommands/
+from jinja2 import Template
+from retry import retry
 from typing_extensions import Annotated
 
-from functions import call_ai_with_template, extract_json, writefile, clean_json, init_client, readfile, get_template
-from jinja2 import Template
 from chaptersapp import gatherPriorChapters, generateall
+from config import getconfig
+from functions import call_ai_with_template, extract_json, writefile, clean_json, init_client, readfile, get_template
+from lib.md2docx_python.md2docx_python.src.md2docx_python import markdown_to_word
 
 # bootstrap typer
 app = typer.Typer(no_args_is_help=True)
@@ -49,6 +49,38 @@ def create(
             writefile("./books/" + name + "/manifest.json", bookoutline_cleaned)
     list() # update books list in ui
     return bookoutline_cleaned
+
+@retry(tries=getconfig("RETRY_COUNT"))
+@app.command()
+def stub(
+        name: Annotated[str, typer.Option(help="Folder name to save this to", prompt="Folder name for book")] = "",
+        title: Annotated[str, typer.Option(help="Title of the book", prompt=True)] = "Choose something for me",
+        description: Annotated[str, typer.Option(help="Description of the book", prompt="Description of the book")] = "Something interesting",
+        themes: Annotated[
+            str, typer.Option(help="Comma separated list of themes", prompt=True)] = "Love, friendship, and perseverance",
+        genres: Annotated[str, typer.Option(help="Comma separated list of genres", prompt=True)] = "Teen fiction",
+        booktype: Annotated[str, typer.Option(help="Type of book to create", prompt=True)] = "Novel",
+        lore: Annotated[str, typer.Option(help="Type of book to create", prompt=True)] = "",
+        settings_count: Annotated[int, typer.Option(help="How many settings to stub out", prompt="Settings to stub out")] = 3,
+        characters_count: Annotated[int, typer.Option(help="How many characters to stub out", prompt="Characters to stub out")] = 3,
+        chapters_count: Annotated[int, typer.Option(help="How many chapters to stub out", prompt="Chapters to stub out")] = 10
+):
+    books_filename = "./books/" + name
+    Path(books_filename).mkdir(parents=True, exist_ok=True)
+    contents = json.dumps({
+        "name": name,
+        "title": title,
+        "description": description,
+        "themes": [s.strip() for s in themes.split(",")],
+        "genres": [s.strip() for s in genres.split(",")],
+        "booktype": booktype,
+        "lore": [s.strip() for s in lore.split("\n")],
+        "settings": [{"name": "", "description": ""}] * int(settings_count),
+        "characters": [{"name": "", "description": ""}] * int(characters_count),
+        "chapters": [{"name": "", "description": ""}] * int(chapters_count)
+    }, indent=2, sort_keys=False)
+    print(contents)
+    return writefile(books_filename + "/manifest.json", contents)
 
 @retry(tries=getconfig("RETRY_COUNT"))
 @app.command()
