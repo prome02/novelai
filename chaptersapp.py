@@ -24,6 +24,7 @@ def summarize(
         additionalHelp: Annotated[str, typer.Option(help="Any additional coaching you wish to provide to the AI")] = ""
 ):
     chaptercontents = readfile("./books/" + name + "/chapter" + str(chapter) + ".txt")
+    chapter = int(chapter)
     data = readfile("books/" + name + "/manifest.json")
     manifest = json5.loads(data)
     manifest.update({
