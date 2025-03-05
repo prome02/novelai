@@ -177,6 +177,8 @@ def generate_llasa3b(
 def generate_kokoro(
     text: Annotated[str, typer.Option(help="Text to generate")],
     voice: Annotated[str, typer.Option(help="voice name")] = "af_heart",
+    frequency_shift: Annotated[str, typer.Option(help="Degree to shift frequency (1.0 is default)")] = "1.0",
+    speed: Annotated[str, typer.Option(help="Speed (1.0 is default)")] = "1.0",
     file_path: Annotated[str, typer.Option(help="Where to save file (out.wav)")] = "out.wav",
 ):
     from kokoro import KModel, KPipeline
@@ -207,7 +209,7 @@ def generate_kokoro(
     text = text if CHAR_LIMIT is None else text.strip()[:CHAR_LIMIT]
 
     use_gpu = CUDA_AVAILABLE
-    speed = 1.0
+    speed = float(speed)
 
     for _, ps, _ in pipeline(text, voice, speed):
         ref_s = pack[len(ps) - 1]
@@ -225,6 +227,16 @@ def generate_kokoro(
                 raise gr.Error(e)
 
         write(file_path, 24000, audio.numpy())
+
+        # adjust speed/frequency with ffmpeg if necessary
+        if frequency_shift != "1.0":
+            print("Applying frequency shift with ffmpeg")
+            if run(["ffmpeg", "-i", file_path,
+                    "-af", "asetrate=24000*" + frequency_shift + ",aresample=24000", # adjust frequency and scale back to same length
+                    file_path + ".temp.wav"]):
+                Path(file_path).unlink()
+                Path(file_path + ".temp.wav").rename(file_path)
+
         return file_path
         #print(audio.numpy())
         #return (24000, audio.numpy()), ps
@@ -322,7 +334,7 @@ def chapter(
                     if coqui_voice is not None or coqui_voice_wav is not None:
                         generate_coqui(line, coqui_voice, coqui_voice_wav, coqui_model, language, filename)
                     elif kokoro_voice is not None:
-                        generate_kokoro(line, kokoro_voice, filename)
+                        generate_kokoro(line, kokoro_voice, "1.0", filename)
                     elif llasa3b_voice_wav is not None:
                         generate_llasa3b(line, llasa3b_voice_wav, filename)
                     else:

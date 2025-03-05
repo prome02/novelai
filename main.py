@@ -213,7 +213,9 @@ def startapp(inbrowser, port, share):
                     with gr.Tab("Kokoro"):
                         gr.Interface(fn=audioapp.generate_kokoro, inputs=[
                             gr.Textbox(label="Text", value="Please excuse my dear aunt sally"),
-                            gr.Dropdown(label="Voice", value='', choices=kokoro_voices, allow_custom_value=True)
+                            gr.Dropdown(label="Voice", value='', choices=kokoro_voices, allow_custom_value=True),
+                            gr.Textbox(label="Frequency Shift (1.0 is none)", value="1.0"),
+                            gr.Textbox(label="Speed (1.0 is normal)", value="1.0")
                         ], outputs="audio", api_name="test_audio")
                     with gr.Tab("Llasa3b"):
                         gr.Interface(fn=audioapp.generate_llasa3b, inputs=[
