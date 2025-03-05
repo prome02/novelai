@@ -171,7 +171,7 @@ def startapp(inbrowser, port, share):
 
             # Audio Functionality
             with gr.Tab("Step 4: Audio"):
-                voices = ['', 'Claribel Dervla', 'Daisy Studious', 'Gracie Wise', 'Tammie Ema', 'Alison Dietlinde',
+                coqui_voices = ['', 'Claribel Dervla', 'Daisy Studious', 'Gracie Wise', 'Tammie Ema', 'Alison Dietlinde',
                           'Ana Florence', 'Annmarie Nele', 'Asya Anara', 'Brenda Stern', 'Gitta Nikolina',
                           'Henriette Usha', 'Sofia Hellen', 'Tammy Grit', 'Tanja Adelina', 'Vjollca Johnnie',
                           'Andrew Chipper', 'Badr Odhiambo', 'Dionisio Schuyler', 'Royston Min', 'Viktor Eka',
@@ -183,17 +183,42 @@ def startapp(inbrowser, port, share):
                           'Alexandra Hisakawa', 'Alma María', 'Rosemary Okafor', 'Ige Behringer', 'Filip Traverse',
                           'Damjan Chapman', 'Wulf Carlevaro', 'Aaron Dreschner', 'Kumar Dahl', 'Eugenio Mataracı',
                           'Ferran Simen', 'Xavier Hayasaka', 'Luis Moray', 'Marcos Rudaski']
-                voicewavs = glob.glob("voices/*.wav")
-                voicewavs = sorted(voicewavs)
-                voicewavs = [os.path.basename(file) for file in voicewavs]
+
+                # See https://huggingface.co/hexgrad/Kokoro-82M/blob/main/VOICES.md#american-english
+                kokoro_voices = ["af_alloy", "af_aoede", "af_bella", "af_heart", "af_jessica", "af_kore", "af_nicole",
+                                 "af_nova", "af_river", "af_sarah", "af_sky", "am_adam", "am_echo", "am_eric",
+                                 "am_fenrir", "am_liam", "am_michael", "am_onyx", "am_puck", "am_santa", "bf_alice",
+                                 "bf_emma", "bf_isabella", "bf_lily", "bm_daniel", "bm_fable", "bm_george", "bm_lewis",
+                                 #"ef_dora", "em_alex", "em_santa", "ff_siwis", "hf_alpha", "hf_beta", "hm_omega",
+                                 #"hm_psi", "if_sara", "im_nicola", "jf_alpha", "jf_gongitsune", "jf_nezumi",
+                                 #"jf_tebukuro", "jm_kumo", "pf_dora", "pm_alex", "pm_santa", "zf_xiaobei", "zf_xiaoni",
+                                 #"zf_xiaoxiao", "zf_xiaoyi", "zm_yunjian", "zm_yunxi", "zm_yunxia", "zm_yunyang"
+                                 ]
+
+                voicewavs = sorted(
+                    [os.path.basename(file) for file in glob.glob("voices/*.wav")] +
+                    [os.path.basename(file) for file in glob.glob("voices/*.mp3")] +
+                    [os.path.basename(file) for file in glob.glob("voices/.*.wav")] +
+                    [os.path.basename(file) for file in glob.glob("voices/.*.mp3")]
+                )
                 voicewavs.insert(0, "")
 
                 with gr.Tabs():
-                    with gr.Tab("Audio Tester"):
-                        gr.Interface(fn=audioapp.generate, inputs=[
+                    with gr.Tab("Coqui"):
+                        gr.Interface(fn=audioapp.generate_coqui, inputs=[
                             gr.Textbox(label="Text", value="Please excuse my dear aunt sally"),
-                            gr.Dropdown(label="Voice", value='', choices=voices),
-                            gr.Dropdown(label="Voice Wav", value="british-man-1.wav", choices=voicewavs),
+                            gr.Dropdown(label="Voice", value='', choices=coqui_voices, allow_custom_value=True),
+                            gr.Dropdown(label="Voice Wav", value="british-man-1.wav", choices=voicewavs, allow_custom_value=True),
+                        ], outputs="audio", api_name="test_audio")
+                    with gr.Tab("Kokoro"):
+                        gr.Interface(fn=audioapp.generate_kokoro, inputs=[
+                            gr.Textbox(label="Text", value="Please excuse my dear aunt sally"),
+                            gr.Dropdown(label="Voice", value='', choices=kokoro_voices, allow_custom_value=True)
+                        ], outputs="audio", api_name="test_audio")
+                    with gr.Tab("Llasa3b"):
+                        gr.Interface(fn=audioapp.generate_llasa3b, inputs=[
+                            gr.Textbox(label="Text", value="Please excuse my dear aunt sally"),
+                            gr.Dropdown(label="Voice", value='british-man-1.wav', choices=voicewavs, allow_custom_value=True),
                         ], outputs="audio", api_name="test_audio")
                     with gr.Tab("Generate Chapter(s)"):
                         gr.Interface(
@@ -201,8 +226,10 @@ def startapp(inbrowser, port, share):
                             inputs=[
                                 gr.Dropdown(label="Book Folder Name", allow_custom_value=True, choices=booksapp.list()),
                                 gr.Textbox(label="Chapter Number", value="all"),
-                                gr.Dropdown(label="Voice", value='', choices=voices),
-                                gr.Dropdown(label="Voice Wav", value="british-man-1.wav", choices=voicewavs),
+                                gr.Dropdown(label="Coqui - Voice", value='', choices=coqui_voices),
+                                gr.Dropdown(label="Coqui - Voice Wav", value="", choices=voicewavs),
+                                gr.Dropdown(label="Kokoro - Voice", value='', choices=kokoro_voices),
+                                gr.Dropdown(label="Llasa3b - Voice Wav", value="", choices=voicewavs),
                             ],
                             outputs="textbox",
                             api_name="generate_audio_chapters"

@@ -42,14 +42,16 @@ You will need Python installed. I document what version I normally use in .pytho
    ```bash
    pip install -r requirements.txt
    ```
-   Optional: Install additional dependencies to generate audiobooks (python coqui-tts package and ffmpeg for Mac/Windows/Linux)
+   Optional: Install additional dependencies to generate audiobooks (python packages for respective models and ffmpeg for Mac/Windows/Linux)
    ```bash
-   pip install -r requirements.audiobook.txt
+   pip install -r requirements.kokoro.txt
+   pip install -r requirements.coqui.txt
+   pip install -r requirements.llasa3b.txt
    brew install ffmpeg
    # cuda support for nvidia cards:
    pip uninstall torch torchaudio
    pip install torch==2.5.1+cu124 torchaudio==2.5.1+cu124 --index-url https://download.pytorch.org/whl/cu124
-   ``` 
+   ```
 3. Configure Large Language Model: 
    - By default, it expects you have [LM Studio installed](https://lmstudio.ai/) and [running a server](https://lmstudio.ai/docs/api/server) locally running the lmstudio-community/Meta-Llama-3.1-8B-Instruct-GGUF model. 
    - If this is not the case, such as if you want to use a different model or are using OpenAI's ChatGPT, then edit the configuration in novelai.bat and novelai.sh.
