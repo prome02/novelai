@@ -239,7 +239,9 @@ def startapp(inbrowser, port, share):
                             fn=audioapp.buildmp3,
                             inputs=[
                                 gr.Dropdown(label="Book Folder Name", allow_custom_value=True, choices=booksapp.list()),
-                                gr.Textbox(label="Speed", value="1.1")],
+                                gr.Textbox(label="Speed (1.0 is normal)", value="1.0"),
+                                gr.Textbox(label="Frequency Shift (1.0 is none)", value="1.0")
+                            ],
                             outputs="audio",
                             api_name="compile_mp3"
                         )

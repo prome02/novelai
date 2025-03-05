@@ -84,7 +84,8 @@ def generate_llasa3b(
 
     model_path = "srinivasbilla/xcodec2"
     Codec_model = XCodec2Model.from_pretrained(model_path) if "llasa3b_model_path" not in cached_vars else cached_vars["llasa3b_model_path"]
-    Codec_model.eval().cuda()
+    if "llasa3b_model_path" not in cached_vars:
+        Codec_model.eval().cuda() # only do when model loaded first time
     cached_vars["llasa3b_model_path"] = Codec_model
 
     whisper_turbo_pipe = pipeline(
@@ -346,17 +347,20 @@ def run(command):
 @app.command()
 def buildmp3(
     book: Annotated[str, typer.Argument(help="Folder of book to generate")],
-    speed: Annotated[str, typer.Option(help="Speed to generate (1.1 is default)")] = "1.1"
+    speed: Annotated[str, typer.Option(help="Speed to generate (1.1 is default)")] = "1.1",
+    frequency_shift: Annotated[str, typer.Option(help="Degree to shift frequency (1.0 is default)")] = "1.0",
 ):
     # Calculate location of files
     booksdir = "./books/" + book + "/"
     listfilename = booksdir + "list.txt"
     wavfilename = booksdir + "audiobook.wav"
     mp3filename = booksdir + "audiobook.mp3"
+    mp3filename_shifted = booksdir + "audiobook-shifted.mp3"
 
     Path(listfilename).unlink(missing_ok=True)
     Path(wavfilename).unlink(missing_ok=True)
     Path(mp3filename).unlink(missing_ok=True)
+    Path(mp3filename_shifted).unlink(missing_ok=True)
 
     # Build manifest of files to be combined
     pattern = f"{booksdir}audiobook-*.wav"
@@ -371,9 +375,22 @@ def buildmp3(
     print("Combining " + str(len(files)) + " Files into " + wavfilename)
     if run(["ffmpeg","-f","concat","-i",listfilename,"-c","copy",wavfilename]):
         print("Converting to mp3 and saving in " + mp3filename)
-        if run(["ffmpeg","-i", wavfilename, "-filter:a", "atempo=" + str(speed), mp3filename]):
+        if run(["ffmpeg",
+                "-i", wavfilename, # input
+                "-qscale:a", "0", # high quality
+                "-filter:a", "atempo=" + str(speed), # adjust speed
+                mp3filename]):
             print("Outputted to " + mp3filename)
-            return mp3filename
+            if frequency_shift != "1.0":
+                # ffmpeg -i "out - Copy.wav" -af asetrate=24000*0.75,aresample=24000 "out - modulated.wav"
+                if run(["ffmpeg", "-i", mp3filename,
+                        "-qscale:a", "0", # high quality
+                        "-af", "asetrate=24000*" + frequency_shift + ",aresample=24000", # adjust frequency and scale back to same length
+                        mp3filename_shifted]):
+                    print("Outputted frequency shifted mp3 to to " + mp3filename_shifted)
+                    return mp3filename_shifted
+            else:
+                return mp3filename
 
     print("Failed")
     return None
