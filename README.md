@@ -47,6 +47,7 @@ You will need Python installed. I document what version I normally use in .pytho
    pip install -r requirements.kokoro.txt
    pip install -r requirements.coqui.txt
    pip install -r requirements.llasa3b.txt
+   pip install -r requirements.sparktts.txt
    brew install ffmpeg
    # cuda support for nvidia cards:
    pip uninstall torch torchaudio

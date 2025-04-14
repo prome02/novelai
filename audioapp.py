@@ -53,6 +53,68 @@ def generate_coqui(
         print("Missing text to generate")
     return file_path
 
+def trim_trailing_silence_librosa(wav_data, sample_rate=16000, top_db=30, frame_length=1024, hop_length=512):
+    """
+    Trims trailing silence using librosa's effects.trim and returns both trimmed audio and seconds trimmed
+
+    Args:
+        wav_data: numpy array of audio samples
+        sample_rate: audio sample rate
+        top_db: threshold in dB for silence detection
+        frame_length: analysis frame length
+        hop_length: analysis frame hop length
+
+    Returns:
+        Tuple of (trimmed audio as numpy array, seconds trimmed)
+    """
+    try:
+        # Trim starting and trailing silence
+        import librosa
+        y_trimmed, _ = librosa.effects.trim(
+            wav_data,
+            top_db=top_db,
+            frame_length=frame_length,
+            hop_length=hop_length
+        )
+
+        seconds_trimmed = (len(wav_data) - len(y_trimmed)) / sample_rate
+        print(f"Trimmed {seconds_trimmed:.2f}s of silence using librosa")
+
+        return y_trimmed, seconds_trimmed
+    except Exception as e:
+        print(f"Error trimming silence with librosa: {e}")
+        return wav_data, 0.0
+
+@app.command()
+def generate_sparktts(
+    text: Annotated[str, typer.Option(help="Text to generate")],
+    voice: Annotated[str, typer.Option(help="TTS Voice (filename in voices directory)")] = "british-man-1.wav",
+    file_path: Annotated[str, typer.Option(help="Where to save file (out.wav)")] = "out.wav",
+):
+    from spark_tts_lib import SparkTTS # see https://pypi.org/project/spark-tts-lib/
+    import soundfile as sf
+    from huggingface_hub import snapshot_download
+
+    if "sparktts_model" not in cached_vars:
+        snapshot_download("SparkAudio/Spark-TTS-0.5B", local_dir="pretrained_models/Spark-TTS-0.5B")
+    model = SparkTTS() if "sparktts_model" not in cached_vars else cached_vars["sparktts_model"]
+    cached_vars["sparktts_model"] = model
+
+    wav_data = model.inference(
+        text=text,
+        prompt_speech_path=f"voices/{voice}",
+        #prompt_text="", # could calculate this, but seems to not be needed to get good quality output
+        #temperature=0.8,
+        top_k=100,
+        #top_p=0.95,
+    )
+    wav_data, seconds_trimmed = trim_trailing_silence_librosa(wav_data) #trim excessive silence
+
+    # if only need the generated part
+    sf.write(file_path, wav_data, samplerate=16000)
+    print("Generated " + file_path)
+    return file_path
+
 @app.command()
 def generate_llasa3b(
     text: Annotated[str, typer.Option(help="Text to generate")],
@@ -73,20 +135,22 @@ def generate_llasa3b(
 
     # Init model, caching each step to improve performance in subsequent generations
     llasa_3b = 'srinivasbilla/llasa-3b'
-    tokenizer = AutoTokenizer.from_pretrained(llasa_3b)
+    tokenizer = AutoTokenizer.from_pretrained(llasa_3b) if "llasa3b_tokenizer" not in cached_vars else cached_vars["llasa3b_tokenizer"]
+    cached_vars["llasa3b_tokenizer"] = tokenizer
 
     model = AutoModelForCausalLM.from_pretrained(
         llasa_3b,
         trust_remote_code=True,
         device_map='cuda',
+
     ) if "llasa3b_model" not in cached_vars else cached_vars["llasa3b_model"]
-    cached_vars["llasa3b_model"] = model
+    #cached_vars["llasa3b_model"] = model
 
     model_path = "srinivasbilla/xcodec2"
     Codec_model = XCodec2Model.from_pretrained(model_path) if "llasa3b_model_path" not in cached_vars else cached_vars["llasa3b_model_path"]
     if "llasa3b_model_path" not in cached_vars:
         Codec_model.eval().cuda() # only do when model loaded first time
-    cached_vars["llasa3b_model_path"] = Codec_model
+    #cached_vars["llasa3b_model_path"] = Codec_model
 
     whisper_turbo_pipe = pipeline(
         "automatic-speech-recognition",
@@ -94,7 +158,7 @@ def generate_llasa3b(
         torch_dtype=torch.float16,
         device=device,
     ) if "llasa3b_whisper_turbo_pipe" not in cached_vars else cached_vars["llasa3b_whisper_turbo_pipe"]
-    cached_vars["llasa3b_whisper_turbo_pipe"] = whisper_turbo_pipe
+    #cached_vars["llasa3b_whisper_turbo_pipe"] = whisper_turbo_pipe
 
     if text.strip() != "":
         waveform, sample_rate = torchaudio.load("voices/" + voice)
@@ -112,6 +176,8 @@ def generate_llasa3b(
 
         prompt_wav = torchaudio.transforms.Resample(orig_freq=sample_rate, new_freq=16000)(waveform_mono)
         prompt_text = whisper_turbo_pipe(prompt_wav[0].numpy())['text'].strip()
+
+        print(prompt_text)
 
         input_text = prompt_text + ' ' + text
 
@@ -274,9 +340,10 @@ def chapter(
     book: Annotated[str, typer.Argument(help="Folder of book to generate")],
     chapter: Annotated[str, typer.Argument(help="Chapter to generate (number or all)")] = "all",
     coqui_voice: Annotated[str, typer.Option(help="Preconfigured Voice ('Claribel Dervla', 'Daisy Studious', 'Gracie Wise', 'Tammie Ema', 'Alison Dietlinde', 'Ana Florence', 'Annmarie Nele', 'Asya Anara', 'Brenda Stern', 'Gitta Nikolina', 'Henriette Usha', 'Sofia Hellen', 'Tammy Grit', 'Tanja Adelina', 'Vjollca Johnnie', 'Andrew Chipper', 'Badr Odhiambo', 'Dionisio Schuyler', 'Royston Min', 'Viktor Eka', 'Abrahan Mack', 'Adde Michal', 'Baldur Sanjin', 'Craig Gutsy', 'Damien Black', 'Gilberto Mathias', 'Ilkin Urbano', 'Kazuhiko Atallah', 'Ludvig Milivoj', 'Suad Qasim', 'Torcull Diarmuid', 'Viktor Menelaos', 'Zacharie Aimilios', 'Nova Hogarth', 'Maja Ruoho', 'Uta Obando', 'Lidiya Szekeres', 'Chandra MacFarland', 'Szofi Granger', 'Camilla Holmström', 'Lilya Stainthorpe', 'Zofija Kendrick', 'Narelle Moon', 'Barbora MacLean', 'Alexandra Hisakawa', 'Alma María', 'Rosemary Okafor', 'Ige Behringer', 'Filip Traverse', 'Damjan Chapman', 'Wulf Carlevaro', 'Aaron Dreschner', 'Kumar Dahl', 'Eugenio Mataracı', 'Ferran Simen', 'Xavier Hayasaka', 'Luis Moray', 'Marcos Rudaski')")] = None,
-    coqui_voice_wav: Annotated[str, typer.Option(help="TTS Voice (filename in voices directory)")] = "british-man-1.wav",
+    coqui_voice_wav: Annotated[str, typer.Option(help="TTS Voice (filename in voices directory)")] = None,
     kokoro_voice: Annotated[str, typer.Option(help="Preconfigured Voice (See https://huggingface.co/hexgrad/Kokoro-82M/blob/main/VOICES.md)")] = None,
-    llasa3b_voice_wav: Annotated[str, typer.Option(help="TTS Voice (filename in voices directory)")] = "british-man-1.wav",
+    llasa3b_voice_wav: Annotated[str, typer.Option(help="TTS Voice (filename in voices directory)")] = None,
+    sparktts_voice_wav: Annotated[str, typer.Option(help="Spark TTS Voice (filename in voices directory)")] = None,
 ):
     # Default values
     coqui_model = "tts_models/multilingual/multi-dataset/xtts_v2"
@@ -290,6 +357,8 @@ def chapter(
         kokoro_voice = None
     if llasa3b_voice_wav == "":
         llasa3b_voice_wav = None
+    if sparktts_voice_wav == "":
+        sparktts_voice_wav = None
 
     # Read contents and loop over chapters
     contents = readfile("./books/" + book + "/manifest.json")
@@ -334,9 +403,11 @@ def chapter(
                     if coqui_voice is not None or coqui_voice_wav is not None:
                         generate_coqui(line, coqui_voice, coqui_voice_wav, coqui_model, language, filename)
                     elif kokoro_voice is not None:
-                        generate_kokoro(line, kokoro_voice, "1.0", filename)
+                        generate_kokoro(line, kokoro_voice, "1.0", "1.0", filename)
                     elif llasa3b_voice_wav is not None:
                         generate_llasa3b(line, llasa3b_voice_wav, filename)
+                    elif sparktts_voice_wav is not None:
+                        generate_sparktts(line, sparktts_voice_wav, filename)
                     else:
                         generate_kokoro(line, "am_onyx", filename)
                 else:

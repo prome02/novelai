@@ -209,19 +209,25 @@ def startapp(inbrowser, port, share):
                             gr.Textbox(label="Text", value="Please excuse my dear aunt sally"),
                             gr.Dropdown(label="Voice", value='', choices=coqui_voices, allow_custom_value=True),
                             gr.Dropdown(label="Voice Wav", value="british-man-1.wav", choices=voicewavs, allow_custom_value=True),
-                        ], outputs="audio", api_name="test_audio")
+                        ], outputs="audio", api_name="test_audio_coqui")
                     with gr.Tab("Kokoro"):
                         gr.Interface(fn=audioapp.generate_kokoro, inputs=[
                             gr.Textbox(label="Text", value="Please excuse my dear aunt sally"),
                             gr.Dropdown(label="Voice", value='', choices=kokoro_voices, allow_custom_value=True),
                             gr.Textbox(label="Frequency Shift (1.0 is none)", value="1.0"),
                             gr.Textbox(label="Speed (1.0 is normal)", value="1.0")
-                        ], outputs="audio", api_name="test_audio")
+                        ], outputs="audio", api_name="test_audio_kokoro")
                     with gr.Tab("Llasa3b"):
                         gr.Interface(fn=audioapp.generate_llasa3b, inputs=[
                             gr.Textbox(label="Text", value="Please excuse my dear aunt sally"),
-                            gr.Dropdown(label="Voice", value='british-man-1.wav', choices=voicewavs, allow_custom_value=True),
-                        ], outputs="audio", api_name="test_audio")
+                            gr.Dropdown(label="Voice", value='british-man-1.wav', choices=voicewavs,
+                                        allow_custom_value=True),
+                        ], outputs="audio", api_name="test_audio_llasa3b")
+                    with gr.Tab("SparkTTS"):
+                        gr.Interface(fn=audioapp.generate_sparktts, inputs=[
+                            gr.Textbox(label="Text", value="Please excuse my dear aunt sally"),
+                            gr.Dropdown(label="Voice", value='lady.wav', choices=voicewavs, allow_custom_value=True),
+                        ], outputs="audio", api_name="test_audio_sparktts")
                     with gr.Tab("Generate Chapter(s)"):
                         gr.Interface(
                             fn=audioapp.chapter,
@@ -232,6 +238,7 @@ def startapp(inbrowser, port, share):
                                 gr.Dropdown(label="Coqui - Voice Wav", value="", choices=voicewavs),
                                 gr.Dropdown(label="Kokoro - Voice", value='', choices=kokoro_voices),
                                 gr.Dropdown(label="Llasa3b - Voice Wav", value="", choices=voicewavs),
+                                gr.Dropdown(label="SparkTTS - Voice Wav", value="", choices=voicewavs),
                             ],
                             outputs="textbox",
                             api_name="generate_audio_chapters"

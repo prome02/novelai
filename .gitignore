@@ -9,3 +9,5 @@ out.wav
 tts_output.wav
 books/**/*.wav
 books/**/list.txt
+pretrained_models/
+out.mp3
