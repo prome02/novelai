@@ -11,3 +11,4 @@ books/**/*.wav
 books/**/list.txt
 pretrained_models/
 out.mp3
+.gradio/certificate.pem
