@@ -62,6 +62,10 @@ You will need Python installed. I document what version I normally use in .pytho
    ```bash
    ./novelai.sh
    ```
+   - If the UI fails to launch because `localhost` isn't accessible, re-run with the `--share` flag to generate a public link.
+   ```bash
+   ./novelai.sh start --share
+   ```
    ```cmd
    novelai.bat
    ```
