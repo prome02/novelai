@@ -327,7 +327,15 @@ def startapp(inbrowser, port, share):
                     #         fn=lambda:
                     #     )
     # Launch app!
-    appuiblocks.launch(server_port=int(port), show_error=True, share=share, inbrowser=inbrowser, show_api=False)
+    try:
+        appuiblocks.launch(server_port=int(port), show_error=True, share=share, inbrowser=inbrowser, show_api=False)
+    except ValueError as e:
+        if not share and "shareable link" in str(e):
+            print("Warning:", e)
+            print("Retrying with share=True to create a public link...")
+            appuiblocks.launch(server_port=int(port), show_error=True, share=True, inbrowser=inbrowser, show_api=False)
+        else:
+            raise
 
 if __name__ == "__main__":
     app()
