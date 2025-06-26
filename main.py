@@ -60,6 +60,11 @@ def start(
 
 def startapp(inbrowser, port, share):
     import gradio as gr
+    # Gradio 5.9.1 can fail when building API information if any schema
+    # contains boolean `additionalProperties` values.  The web UI does not
+    # require the API docs, so bypass the call entirely to avoid a crash.
+    import gradio.blocks as gr_blocks
+    gr_blocks.Blocks.get_api_info = lambda self: {}
     with gr.Blocks() as appuiblocks:
         # Generate Novel
         with gr.Tabs():
@@ -327,7 +332,15 @@ def startapp(inbrowser, port, share):
                     #         fn=lambda:
                     #     )
     # Launch app!
-    appuiblocks.launch(server_port=int(port), show_error=True, share=share, inbrowser=inbrowser, show_api=True)
+    try:
+        appuiblocks.launch(server_port=int(port), show_error=True, share=share, inbrowser=inbrowser, show_api=False)
+    except ValueError as e:
+        if not share and "shareable link" in str(e):
+            print("Warning:", e)
+            print("Retrying with share=True to create a public link...")
+            appuiblocks.launch(server_port=int(port), show_error=True, share=True, inbrowser=inbrowser, show_api=False)
+        else:
+            raise
 
 if __name__ == "__main__":
     app()
