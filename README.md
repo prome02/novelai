@@ -57,7 +57,8 @@ You will need Python installed. I document what version I normally use in .pytho
    - By default, it expects you have [LM Studio installed](https://lmstudio.ai/) and [running a server](https://lmstudio.ai/docs/api/server) locally running the lmstudio-community/Meta-Llama-3.1-8B-Instruct-GGUF model. 
    - If this is not the case, such as if you want to use a different model or are using OpenAI's ChatGPT, then edit the configuration in novelai.bat and novelai.sh.
    - You can also enable debug logs by modifying novelai.bat and novelai.sh (based on if you are using windows or mac/linux). 
-4. Run the application using novelai.bat or novelai.sh. It will open your web browser automatically. 
+4. Run the application using novelai.bat or novelai.sh. It will open your web browser automatically.
+   - The web UI starts with API documentation disabled due to a Gradio issue. If you upgrade Gradio and want the generated API docs, edit `main.py` and set `show_api=True` in the `launch()` call.
    ```bash
    ./novelai.sh
    ```
