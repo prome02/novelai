@@ -60,6 +60,11 @@ def start(
 
 def startapp(inbrowser, port, share):
     import gradio as gr
+    # Gradio 5.9.1 can fail when building API information if any schema
+    # contains boolean `additionalProperties` values.  The web UI does not
+    # require the API docs, so bypass the call entirely to avoid a crash.
+    import gradio.blocks as gr_blocks
+    gr_blocks.Blocks.get_api_info = lambda self: {}
     with gr.Blocks() as appuiblocks:
         # Generate Novel
         with gr.Tabs():
